@@ -3,6 +3,7 @@
 // https://github.com/DMTF/Redfish-Schema-C-Struct-Generator.
 //
 //  (C) Copyright 2019-2022 Hewlett Packard Enterprise Development LP<BR>
+//  Copyright (c) 2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 //
 // Copyright Notice:
 // Copyright 2019-2022 Distributed Management Task Force, Inc. All rights reserved.
@@ -943,10 +944,10 @@ static RedfishCS_status CS_To_JSON_ActionsComputerSystem_Reset(json_t *CsJson, c
     return RedfishCS_status_unsupported;
   }
 
-  // target 
+  // target
   if (InsertJsonStringObj (CsJson, "target", CSPtr->target) != RedfishCS_status_success) {goto Error;}
 
-  // title 
+  // title
   if (InsertJsonStringObj (CsJson, "title", CSPtr->title) != RedfishCS_status_success) {goto Error;}
 
   // Set to parent JSON object.
@@ -970,10 +971,10 @@ static RedfishCS_status CS_To_JSON_ActionsComputerSystem_SetDefaultBootOrder(jso
     return RedfishCS_status_unsupported;
   }
 
-  // target 
+  // target
   if (InsertJsonStringObj (CsJson, "target", CSPtr->target) != RedfishCS_status_success) {goto Error;}
 
-  // title 
+  // title
   if (InsertJsonStringObj (CsJson, "title", CSPtr->title) != RedfishCS_status_success) {goto Error;}
 
   // Set to parent JSON object.
@@ -985,13 +986,10 @@ Error:;
 }
 static RedfishCS_status CS_To_JSON_ActionsOem(json_t *CsJson, char *Key, RedfishComputerSystem_V1_5_0_OemActions_CS *CSPtr)
 {
-  json_t *CsParentJson;
-
   if (CSPtr == NULL) {
     return RedfishCS_status_success;
   }
 
-  CsParentJson = CsJson;
   CsJson = json_object();
   if (CsJson == NULL) {
     return RedfishCS_status_unsupported;
@@ -1046,25 +1044,25 @@ static RedfishCS_status CS_To_JSON_Boot(json_t *CsJson, char *Key, RedfishComput
     return RedfishCS_status_unsupported;
   }
 
-  // BootNext 
+  // BootNext
   if (InsertJsonStringObj (CsJson, "BootNext", CSPtr->BootNext) != RedfishCS_status_success) {goto Error;}
 
-  // BootOptions 
+  // BootOptions
   if (InsertJsonLinkObj (CsJson, "BootOptions", &CSPtr->BootOptions) != RedfishCS_status_success) {goto Error;}
 
-  // BootOrder 
+  // BootOrder
   if (InsertJsonStringArrayObj (CsJson, "BootOrder", CSPtr->BootOrder) != RedfishCS_status_success) {goto Error;}
 
-  // BootSourceOverrideEnabled 
+  // BootSourceOverrideEnabled
   if (InsertJsonStringObj (CsJson, "BootSourceOverrideEnabled", CSPtr->BootSourceOverrideEnabled) != RedfishCS_status_success) {goto Error;}
 
-  // BootSourceOverrideMode 
+  // BootSourceOverrideMode
   if (InsertJsonStringObj (CsJson, "BootSourceOverrideMode", CSPtr->BootSourceOverrideMode) != RedfishCS_status_success) {goto Error;}
 
-  // BootSourceOverrideTarget 
+  // BootSourceOverrideTarget
   if (InsertJsonStringObj (CsJson, "BootSourceOverrideTarget", CSPtr->BootSourceOverrideTarget) != RedfishCS_status_success) {goto Error;}
 
-  // UefiTargetBootSourceOverride 
+  // UefiTargetBootSourceOverride
   if (InsertJsonStringObj (CsJson, "UefiTargetBootSourceOverride", CSPtr->UefiTargetBootSourceOverride) != RedfishCS_status_success) {goto Error;}
 
   // Set to parent JSON object.
@@ -1076,13 +1074,10 @@ Error:;
 }
 static RedfishCS_status CS_To_JSON_HostWatchdogTimerOem(json_t *CsJson, char *Key, RedfishResource_Oem_CS *CSPtr)
 {
-  json_t *CsParentJson;
-
   if (CSPtr == NULL) {
     return RedfishCS_status_success;
   }
 
-  CsParentJson = CsJson;
   CsJson = json_object();
   if (CsJson == NULL) {
     return RedfishCS_status_unsupported;
@@ -1107,7 +1102,7 @@ static RedfishCS_status CS_To_JSON_HostWatchdogTimerStatusConditionsOriginOfCond
     return RedfishCS_status_unsupported;
   }
 
-  // @odata.id 
+  // @odata.id
   if (InsertJsonStringObj (CsJson, "@odata.id", CSPtr->odata_id) != RedfishCS_status_success) {goto Error;}
 
   // Set to parent JSON object.
@@ -1139,28 +1134,28 @@ static RedfishCS_status CS_To_JSON_HostWatchdogTimerStatusConditions(json_t *CsJ
     }
 
     NextArrayItem = NextArray->ArrayValue;
-    // LogEntry 
+    // LogEntry
     if (InsertJsonLinkObj (ArrayMember, "LogEntry", &NextArrayItem->LogEntry) != RedfishCS_status_success) {goto Error;}
 
-    // Message 
+    // Message
     if (InsertJsonStringObj (ArrayMember, "Message", NextArrayItem->Message) != RedfishCS_status_success) {goto Error;}
 
-    // MessageArgs 
+    // MessageArgs
     if (InsertJsonStringArrayObj (ArrayMember, "MessageArgs", NextArrayItem->MessageArgs) != RedfishCS_status_success) {goto Error;}
 
-    // MessageId 
+    // MessageId
     if (InsertJsonStringObj (ArrayMember, "MessageId", NextArrayItem->MessageId) != RedfishCS_status_success) {goto Error;}
 
     // OriginOfCondition
     if (CS_To_JSON_HostWatchdogTimerStatusConditionsOriginOfCondition(ArrayMember, "OriginOfCondition", NextArrayItem->OriginOfCondition) != RedfishCS_status_success) {goto Error;}
 
-    // Resolution 
+    // Resolution
     if (InsertJsonStringObj (ArrayMember, "Resolution", NextArrayItem->Resolution) != RedfishCS_status_success) {goto Error;}
 
-    // Severity 
+    // Severity
     if (InsertJsonStringObj (ArrayMember, "Severity", NextArrayItem->Severity) != RedfishCS_status_success) {goto Error;}
 
-    // Timestamp 
+    // Timestamp
     if (InsertJsonStringObj (ArrayMember, "Timestamp", NextArrayItem->Timestamp) != RedfishCS_status_success) {goto Error;}
 
     if (json_array_append_new (ArrayJson, ArrayMember) != 0) {goto Error;}
@@ -1174,13 +1169,10 @@ Error:;
 }
 static RedfishCS_status CS_To_JSON_HostWatchdogTimerStatusOem(json_t *CsJson, char *Key, RedfishResource_Oem_CS *CSPtr)
 {
-  json_t *CsParentJson;
-
   if (CSPtr == NULL) {
     return RedfishCS_status_success;
   }
 
-  CsParentJson = CsJson;
   CsJson = json_object();
   if (CsJson == NULL) {
     return RedfishCS_status_unsupported;
@@ -1208,16 +1200,16 @@ static RedfishCS_status CS_To_JSON_HostWatchdogTimerStatus(json_t *CsJson, char 
   // Conditions
   if (CS_To_JSON_HostWatchdogTimerStatusConditions(CsJson, "Conditions", CSPtr->Conditions) != RedfishCS_status_success) {goto Error;}
 
-  // Health 
+  // Health
   if (InsertJsonStringObj (CsJson, "Health", CSPtr->Health) != RedfishCS_status_success) {goto Error;}
 
-  // HealthRollup 
+  // HealthRollup
   if (InsertJsonStringObj (CsJson, "HealthRollup", CSPtr->HealthRollup) != RedfishCS_status_success) {goto Error;}
 
   // Oem
   if (CS_To_JSON_HostWatchdogTimerStatusOem(CsJson, "Oem", CSPtr->Oem) != RedfishCS_status_success) {goto Error;}
 
-  // State 
+  // State
   if (InsertJsonStringObj (CsJson, "State", CSPtr->State) != RedfishCS_status_success) {goto Error;}
 
   // Set to parent JSON object.
@@ -1241,7 +1233,7 @@ static RedfishCS_status CS_To_JSON_HostWatchdogTimer(json_t *CsJson, char *Key, 
     return RedfishCS_status_unsupported;
   }
 
-  // FunctionEnabled 
+  // FunctionEnabled
   if (InsertJsonBoolObj (CsJson, "FunctionEnabled", CSPtr->FunctionEnabled) != RedfishCS_status_success) {goto Error;}
 
   // Oem
@@ -1250,10 +1242,10 @@ static RedfishCS_status CS_To_JSON_HostWatchdogTimer(json_t *CsJson, char *Key, 
   // Status
   if (CS_To_JSON_HostWatchdogTimerStatus(CsJson, "Status", CSPtr->Status) != RedfishCS_status_success) {goto Error;}
 
-  // TimeoutAction 
+  // TimeoutAction
   if (InsertJsonStringObj (CsJson, "TimeoutAction", CSPtr->TimeoutAction) != RedfishCS_status_success) {goto Error;}
 
-  // WarningAction 
+  // WarningAction
   if (InsertJsonStringObj (CsJson, "WarningAction", CSPtr->WarningAction) != RedfishCS_status_success) {goto Error;}
 
   // Set to parent JSON object.
@@ -1265,13 +1257,10 @@ Error:;
 }
 static RedfishCS_status CS_To_JSON_HostedServicesOem(json_t *CsJson, char *Key, RedfishResource_Oem_CS *CSPtr)
 {
-  json_t *CsParentJson;
-
   if (CSPtr == NULL) {
     return RedfishCS_status_success;
   }
 
-  CsParentJson = CsJson;
   CsJson = json_object();
   if (CsJson == NULL) {
     return RedfishCS_status_unsupported;
@@ -1299,7 +1288,7 @@ static RedfishCS_status CS_To_JSON_HostedServices(json_t *CsJson, char *Key, Red
   // Oem
   if (CS_To_JSON_HostedServicesOem(CsJson, "Oem", CSPtr->Oem) != RedfishCS_status_success) {goto Error;}
 
-  // StorageServices 
+  // StorageServices
   if (InsertJsonLinkObj (CsJson, "StorageServices", &CSPtr->StorageServices) != RedfishCS_status_success) {goto Error;}
 
   // Set to parent JSON object.
@@ -1331,7 +1320,7 @@ static RedfishCS_status CS_To_JSON_LinksCooledBy(json_t *CsJson, char *Key, Redf
     }
 
     NextArrayItem = NextArray->ArrayValue;
-    // @odata.id 
+    // @odata.id
     if (InsertJsonStringObj (ArrayMember, "@odata.id", NextArrayItem->odata_id) != RedfishCS_status_success) {goto Error;}
 
     if (json_array_append_new (ArrayJson, ArrayMember) != 0) {goto Error;}
@@ -1345,13 +1334,10 @@ Error:;
 }
 static RedfishCS_status CS_To_JSON_LinksOem(json_t *CsJson, char *Key, RedfishResource_Oem_CS *CSPtr)
 {
-  json_t *CsParentJson;
-
   if (CSPtr == NULL) {
     return RedfishCS_status_success;
   }
 
-  CsParentJson = CsJson;
   CsJson = json_object();
   if (CsJson == NULL) {
     return RedfishCS_status_unsupported;
@@ -1384,7 +1370,7 @@ static RedfishCS_status CS_To_JSON_LinksPoweredBy(json_t *CsJson, char *Key, Red
     }
 
     NextArrayItem = NextArray->ArrayValue;
-    // @odata.id 
+    // @odata.id
     if (InsertJsonStringObj (ArrayMember, "@odata.id", NextArrayItem->odata_id) != RedfishCS_status_success) {goto Error;}
 
     if (json_array_append_new (ArrayJson, ArrayMember) != 0) {goto Error;}
@@ -1410,34 +1396,34 @@ static RedfishCS_status CS_To_JSON_Links(json_t *CsJson, char *Key, RedfishCompu
     return RedfishCS_status_unsupported;
   }
 
-  // Chassis 
+  // Chassis
   if (InsertJsonLinkArrayObj (CsJson, "Chassis", &CSPtr->Chassis) != RedfishCS_status_success) {goto Error;}
 
-  // Chassis@odata.count 
+  // Chassis@odata.count
   if (InsertJsonInt64Obj (CsJson, "Chassis@odata.count", CSPtr->Chassisodata_count) != RedfishCS_status_success) {goto Error;}
 
-  // ConsumingComputerSystems 
+  // ConsumingComputerSystems
   if (InsertJsonLinkArrayObj (CsJson, "ConsumingComputerSystems", &CSPtr->ConsumingComputerSystems) != RedfishCS_status_success) {goto Error;}
 
-  // ConsumingComputerSystems@odata.count 
+  // ConsumingComputerSystems@odata.count
   if (InsertJsonInt64Obj (CsJson, "ConsumingComputerSystems@odata.count", CSPtr->ConsumingComputerSystemsodata_count) != RedfishCS_status_success) {goto Error;}
 
   // CooledBy
   if (CS_To_JSON_LinksCooledBy(CsJson, "CooledBy", CSPtr->CooledBy) != RedfishCS_status_success) {goto Error;}
 
-  // CooledBy@odata.count 
+  // CooledBy@odata.count
   if (InsertJsonInt64Obj (CsJson, "CooledBy@odata.count", CSPtr->CooledByodata_count) != RedfishCS_status_success) {goto Error;}
 
-  // Endpoints 
+  // Endpoints
   if (InsertJsonLinkArrayObj (CsJson, "Endpoints", &CSPtr->Endpoints) != RedfishCS_status_success) {goto Error;}
 
-  // Endpoints@odata.count 
+  // Endpoints@odata.count
   if (InsertJsonInt64Obj (CsJson, "Endpoints@odata.count", CSPtr->Endpointsodata_count) != RedfishCS_status_success) {goto Error;}
 
-  // ManagedBy 
+  // ManagedBy
   if (InsertJsonLinkArrayObj (CsJson, "ManagedBy", &CSPtr->ManagedBy) != RedfishCS_status_success) {goto Error;}
 
-  // ManagedBy@odata.count 
+  // ManagedBy@odata.count
   if (InsertJsonInt64Obj (CsJson, "ManagedBy@odata.count", CSPtr->ManagedByodata_count) != RedfishCS_status_success) {goto Error;}
 
   // Oem
@@ -1446,19 +1432,19 @@ static RedfishCS_status CS_To_JSON_Links(json_t *CsJson, char *Key, RedfishCompu
   // PoweredBy
   if (CS_To_JSON_LinksPoweredBy(CsJson, "PoweredBy", CSPtr->PoweredBy) != RedfishCS_status_success) {goto Error;}
 
-  // PoweredBy@odata.count 
+  // PoweredBy@odata.count
   if (InsertJsonInt64Obj (CsJson, "PoweredBy@odata.count", CSPtr->PoweredByodata_count) != RedfishCS_status_success) {goto Error;}
 
-  // ResourceBlocks 
+  // ResourceBlocks
   if (InsertJsonLinkArrayObj (CsJson, "ResourceBlocks", &CSPtr->ResourceBlocks) != RedfishCS_status_success) {goto Error;}
 
-  // ResourceBlocks@odata.count 
+  // ResourceBlocks@odata.count
   if (InsertJsonInt64Obj (CsJson, "ResourceBlocks@odata.count", CSPtr->ResourceBlocksodata_count) != RedfishCS_status_success) {goto Error;}
 
-  // SupplyingComputerSystems 
+  // SupplyingComputerSystems
   if (InsertJsonLinkArrayObj (CsJson, "SupplyingComputerSystems", &CSPtr->SupplyingComputerSystems) != RedfishCS_status_success) {goto Error;}
 
-  // SupplyingComputerSystems@odata.count 
+  // SupplyingComputerSystems@odata.count
   if (InsertJsonInt64Obj (CsJson, "SupplyingComputerSystems@odata.count", CSPtr->SupplyingComputerSystemsodata_count) != RedfishCS_status_success) {goto Error;}
 
   // Set to parent JSON object.
@@ -1482,7 +1468,7 @@ static RedfishCS_status CS_To_JSON_MemorySummaryStatusConditionsOriginOfConditio
     return RedfishCS_status_unsupported;
   }
 
-  // @odata.id 
+  // @odata.id
   if (InsertJsonStringObj (CsJson, "@odata.id", CSPtr->odata_id) != RedfishCS_status_success) {goto Error;}
 
   // Set to parent JSON object.
@@ -1514,28 +1500,28 @@ static RedfishCS_status CS_To_JSON_MemorySummaryStatusConditions(json_t *CsJson,
     }
 
     NextArrayItem = NextArray->ArrayValue;
-    // LogEntry 
+    // LogEntry
     if (InsertJsonLinkObj (ArrayMember, "LogEntry", &NextArrayItem->LogEntry) != RedfishCS_status_success) {goto Error;}
 
-    // Message 
+    // Message
     if (InsertJsonStringObj (ArrayMember, "Message", NextArrayItem->Message) != RedfishCS_status_success) {goto Error;}
 
-    // MessageArgs 
+    // MessageArgs
     if (InsertJsonStringArrayObj (ArrayMember, "MessageArgs", NextArrayItem->MessageArgs) != RedfishCS_status_success) {goto Error;}
 
-    // MessageId 
+    // MessageId
     if (InsertJsonStringObj (ArrayMember, "MessageId", NextArrayItem->MessageId) != RedfishCS_status_success) {goto Error;}
 
     // OriginOfCondition
     if (CS_To_JSON_MemorySummaryStatusConditionsOriginOfCondition(ArrayMember, "OriginOfCondition", NextArrayItem->OriginOfCondition) != RedfishCS_status_success) {goto Error;}
 
-    // Resolution 
+    // Resolution
     if (InsertJsonStringObj (ArrayMember, "Resolution", NextArrayItem->Resolution) != RedfishCS_status_success) {goto Error;}
 
-    // Severity 
+    // Severity
     if (InsertJsonStringObj (ArrayMember, "Severity", NextArrayItem->Severity) != RedfishCS_status_success) {goto Error;}
 
-    // Timestamp 
+    // Timestamp
     if (InsertJsonStringObj (ArrayMember, "Timestamp", NextArrayItem->Timestamp) != RedfishCS_status_success) {goto Error;}
 
     if (json_array_append_new (ArrayJson, ArrayMember) != 0) {goto Error;}
@@ -1549,13 +1535,10 @@ Error:;
 }
 static RedfishCS_status CS_To_JSON_MemorySummaryStatusOem(json_t *CsJson, char *Key, RedfishResource_Oem_CS *CSPtr)
 {
-  json_t *CsParentJson;
-
   if (CSPtr == NULL) {
     return RedfishCS_status_success;
   }
 
-  CsParentJson = CsJson;
   CsJson = json_object();
   if (CsJson == NULL) {
     return RedfishCS_status_unsupported;
@@ -1583,16 +1566,16 @@ static RedfishCS_status CS_To_JSON_MemorySummaryStatus(json_t *CsJson, char *Key
   // Conditions
   if (CS_To_JSON_MemorySummaryStatusConditions(CsJson, "Conditions", CSPtr->Conditions) != RedfishCS_status_success) {goto Error;}
 
-  // Health 
+  // Health
   if (InsertJsonStringObj (CsJson, "Health", CSPtr->Health) != RedfishCS_status_success) {goto Error;}
 
-  // HealthRollup 
+  // HealthRollup
   if (InsertJsonStringObj (CsJson, "HealthRollup", CSPtr->HealthRollup) != RedfishCS_status_success) {goto Error;}
 
   // Oem
   if (CS_To_JSON_MemorySummaryStatusOem(CsJson, "Oem", CSPtr->Oem) != RedfishCS_status_success) {goto Error;}
 
-  // State 
+  // State
   if (InsertJsonStringObj (CsJson, "State", CSPtr->State) != RedfishCS_status_success) {goto Error;}
 
   // Set to parent JSON object.
@@ -1616,16 +1599,16 @@ static RedfishCS_status CS_To_JSON_MemorySummary(json_t *CsJson, char *Key, Redf
     return RedfishCS_status_unsupported;
   }
 
-  // MemoryMirroring 
+  // MemoryMirroring
   if (InsertJsonStringObj (CsJson, "MemoryMirroring", CSPtr->MemoryMirroring) != RedfishCS_status_success) {goto Error;}
 
   // Status
   if (CS_To_JSON_MemorySummaryStatus(CsJson, "Status", CSPtr->Status) != RedfishCS_status_success) {goto Error;}
 
-  // TotalSystemMemoryGiB 
+  // TotalSystemMemoryGiB
   if (InsertJsonInt64Obj (CsJson, "TotalSystemMemoryGiB", CSPtr->TotalSystemMemoryGiB) != RedfishCS_status_success) {goto Error;}
 
-  // TotalSystemPersistentMemoryGiB 
+  // TotalSystemPersistentMemoryGiB
   if (InsertJsonInt64Obj (CsJson, "TotalSystemPersistentMemoryGiB", CSPtr->TotalSystemPersistentMemoryGiB) != RedfishCS_status_success) {goto Error;}
 
   // Set to parent JSON object.
@@ -1637,13 +1620,10 @@ Error:;
 }
 static RedfishCS_status CS_To_JSON_Oem(json_t *CsJson, char *Key, RedfishResource_Oem_CS *CSPtr)
 {
-  json_t *CsParentJson;
-
   if (CSPtr == NULL) {
     return RedfishCS_status_success;
   }
 
-  CsParentJson = CsJson;
   CsJson = json_object();
   if (CsJson == NULL) {
     return RedfishCS_status_unsupported;
@@ -1668,7 +1648,7 @@ static RedfishCS_status CS_To_JSON_ProcessorSummaryStatusConditionsOriginOfCondi
     return RedfishCS_status_unsupported;
   }
 
-  // @odata.id 
+  // @odata.id
   if (InsertJsonStringObj (CsJson, "@odata.id", CSPtr->odata_id) != RedfishCS_status_success) {goto Error;}
 
   // Set to parent JSON object.
@@ -1700,28 +1680,28 @@ static RedfishCS_status CS_To_JSON_ProcessorSummaryStatusConditions(json_t *CsJs
     }
 
     NextArrayItem = NextArray->ArrayValue;
-    // LogEntry 
+    // LogEntry
     if (InsertJsonLinkObj (ArrayMember, "LogEntry", &NextArrayItem->LogEntry) != RedfishCS_status_success) {goto Error;}
 
-    // Message 
+    // Message
     if (InsertJsonStringObj (ArrayMember, "Message", NextArrayItem->Message) != RedfishCS_status_success) {goto Error;}
 
-    // MessageArgs 
+    // MessageArgs
     if (InsertJsonStringArrayObj (ArrayMember, "MessageArgs", NextArrayItem->MessageArgs) != RedfishCS_status_success) {goto Error;}
 
-    // MessageId 
+    // MessageId
     if (InsertJsonStringObj (ArrayMember, "MessageId", NextArrayItem->MessageId) != RedfishCS_status_success) {goto Error;}
 
     // OriginOfCondition
     if (CS_To_JSON_ProcessorSummaryStatusConditionsOriginOfCondition(ArrayMember, "OriginOfCondition", NextArrayItem->OriginOfCondition) != RedfishCS_status_success) {goto Error;}
 
-    // Resolution 
+    // Resolution
     if (InsertJsonStringObj (ArrayMember, "Resolution", NextArrayItem->Resolution) != RedfishCS_status_success) {goto Error;}
 
-    // Severity 
+    // Severity
     if (InsertJsonStringObj (ArrayMember, "Severity", NextArrayItem->Severity) != RedfishCS_status_success) {goto Error;}
 
-    // Timestamp 
+    // Timestamp
     if (InsertJsonStringObj (ArrayMember, "Timestamp", NextArrayItem->Timestamp) != RedfishCS_status_success) {goto Error;}
 
     if (json_array_append_new (ArrayJson, ArrayMember) != 0) {goto Error;}
@@ -1735,13 +1715,10 @@ Error:;
 }
 static RedfishCS_status CS_To_JSON_ProcessorSummaryStatusOem(json_t *CsJson, char *Key, RedfishResource_Oem_CS *CSPtr)
 {
-  json_t *CsParentJson;
-
   if (CSPtr == NULL) {
     return RedfishCS_status_success;
   }
 
-  CsParentJson = CsJson;
   CsJson = json_object();
   if (CsJson == NULL) {
     return RedfishCS_status_unsupported;
@@ -1769,16 +1746,16 @@ static RedfishCS_status CS_To_JSON_ProcessorSummaryStatus(json_t *CsJson, char *
   // Conditions
   if (CS_To_JSON_ProcessorSummaryStatusConditions(CsJson, "Conditions", CSPtr->Conditions) != RedfishCS_status_success) {goto Error;}
 
-  // Health 
+  // Health
   if (InsertJsonStringObj (CsJson, "Health", CSPtr->Health) != RedfishCS_status_success) {goto Error;}
 
-  // HealthRollup 
+  // HealthRollup
   if (InsertJsonStringObj (CsJson, "HealthRollup", CSPtr->HealthRollup) != RedfishCS_status_success) {goto Error;}
 
   // Oem
   if (CS_To_JSON_ProcessorSummaryStatusOem(CsJson, "Oem", CSPtr->Oem) != RedfishCS_status_success) {goto Error;}
 
-  // State 
+  // State
   if (InsertJsonStringObj (CsJson, "State", CSPtr->State) != RedfishCS_status_success) {goto Error;}
 
   // Set to parent JSON object.
@@ -1802,13 +1779,13 @@ static RedfishCS_status CS_To_JSON_ProcessorSummary(json_t *CsJson, char *Key, R
     return RedfishCS_status_unsupported;
   }
 
-  // Count 
+  // Count
   if (InsertJsonInt64Obj (CsJson, "Count", CSPtr->Count) != RedfishCS_status_success) {goto Error;}
 
-  // LogicalProcessorCount 
+  // LogicalProcessorCount
   if (InsertJsonInt64Obj (CsJson, "LogicalProcessorCount", CSPtr->LogicalProcessorCount) != RedfishCS_status_success) {goto Error;}
 
-  // Model 
+  // Model
   if (InsertJsonStringObj (CsJson, "Model", CSPtr->Model) != RedfishCS_status_success) {goto Error;}
 
   // Status
@@ -1835,7 +1812,7 @@ static RedfishCS_status CS_To_JSON_StatusConditionsOriginOfCondition(json_t *CsJ
     return RedfishCS_status_unsupported;
   }
 
-  // @odata.id 
+  // @odata.id
   if (InsertJsonStringObj (CsJson, "@odata.id", CSPtr->odata_id) != RedfishCS_status_success) {goto Error;}
 
   // Set to parent JSON object.
@@ -1867,28 +1844,28 @@ static RedfishCS_status CS_To_JSON_StatusConditions(json_t *CsJson, char *Key, R
     }
 
     NextArrayItem = NextArray->ArrayValue;
-    // LogEntry 
+    // LogEntry
     if (InsertJsonLinkObj (ArrayMember, "LogEntry", &NextArrayItem->LogEntry) != RedfishCS_status_success) {goto Error;}
 
-    // Message 
+    // Message
     if (InsertJsonStringObj (ArrayMember, "Message", NextArrayItem->Message) != RedfishCS_status_success) {goto Error;}
 
-    // MessageArgs 
+    // MessageArgs
     if (InsertJsonStringArrayObj (ArrayMember, "MessageArgs", NextArrayItem->MessageArgs) != RedfishCS_status_success) {goto Error;}
 
-    // MessageId 
+    // MessageId
     if (InsertJsonStringObj (ArrayMember, "MessageId", NextArrayItem->MessageId) != RedfishCS_status_success) {goto Error;}
 
     // OriginOfCondition
     if (CS_To_JSON_StatusConditionsOriginOfCondition(ArrayMember, "OriginOfCondition", NextArrayItem->OriginOfCondition) != RedfishCS_status_success) {goto Error;}
 
-    // Resolution 
+    // Resolution
     if (InsertJsonStringObj (ArrayMember, "Resolution", NextArrayItem->Resolution) != RedfishCS_status_success) {goto Error;}
 
-    // Severity 
+    // Severity
     if (InsertJsonStringObj (ArrayMember, "Severity", NextArrayItem->Severity) != RedfishCS_status_success) {goto Error;}
 
-    // Timestamp 
+    // Timestamp
     if (InsertJsonStringObj (ArrayMember, "Timestamp", NextArrayItem->Timestamp) != RedfishCS_status_success) {goto Error;}
 
     if (json_array_append_new (ArrayJson, ArrayMember) != 0) {goto Error;}
@@ -1902,13 +1879,10 @@ Error:;
 }
 static RedfishCS_status CS_To_JSON_StatusOem(json_t *CsJson, char *Key, RedfishResource_Oem_CS *CSPtr)
 {
-  json_t *CsParentJson;
-
   if (CSPtr == NULL) {
     return RedfishCS_status_success;
   }
 
-  CsParentJson = CsJson;
   CsJson = json_object();
   if (CsJson == NULL) {
     return RedfishCS_status_unsupported;
@@ -1936,16 +1910,16 @@ static RedfishCS_status CS_To_JSON_Status(json_t *CsJson, char *Key, RedfishReso
   // Conditions
   if (CS_To_JSON_StatusConditions(CsJson, "Conditions", CSPtr->Conditions) != RedfishCS_status_success) {goto Error;}
 
-  // Health 
+  // Health
   if (InsertJsonStringObj (CsJson, "Health", CSPtr->Health) != RedfishCS_status_success) {goto Error;}
 
-  // HealthRollup 
+  // HealthRollup
   if (InsertJsonStringObj (CsJson, "HealthRollup", CSPtr->HealthRollup) != RedfishCS_status_success) {goto Error;}
 
   // Oem
   if (CS_To_JSON_StatusOem(CsJson, "Oem", CSPtr->Oem) != RedfishCS_status_success) {goto Error;}
 
-  // State 
+  // State
   if (InsertJsonStringObj (CsJson, "State", CSPtr->State) != RedfishCS_status_success) {goto Error;}
 
   // Set to parent JSON object.
@@ -1957,13 +1931,10 @@ Error:;
 }
 static RedfishCS_status CS_To_JSON_TrustedModulesOem(json_t *CsJson, char *Key, RedfishResource_Oem_CS *CSPtr)
 {
-  json_t *CsParentJson;
-
   if (CSPtr == NULL) {
     return RedfishCS_status_success;
   }
 
-  CsParentJson = CsJson;
   CsJson = json_object();
   if (CsJson == NULL) {
     return RedfishCS_status_unsupported;
@@ -1988,7 +1959,7 @@ static RedfishCS_status CS_To_JSON_TrustedModulesStatusConditionsOriginOfConditi
     return RedfishCS_status_unsupported;
   }
 
-  // @odata.id 
+  // @odata.id
   if (InsertJsonStringObj (CsJson, "@odata.id", CSPtr->odata_id) != RedfishCS_status_success) {goto Error;}
 
   // Set to parent JSON object.
@@ -2020,28 +1991,28 @@ static RedfishCS_status CS_To_JSON_TrustedModulesStatusConditions(json_t *CsJson
     }
 
     NextArrayItem = NextArray->ArrayValue;
-    // LogEntry 
+    // LogEntry
     if (InsertJsonLinkObj (ArrayMember, "LogEntry", &NextArrayItem->LogEntry) != RedfishCS_status_success) {goto Error;}
 
-    // Message 
+    // Message
     if (InsertJsonStringObj (ArrayMember, "Message", NextArrayItem->Message) != RedfishCS_status_success) {goto Error;}
 
-    // MessageArgs 
+    // MessageArgs
     if (InsertJsonStringArrayObj (ArrayMember, "MessageArgs", NextArrayItem->MessageArgs) != RedfishCS_status_success) {goto Error;}
 
-    // MessageId 
+    // MessageId
     if (InsertJsonStringObj (ArrayMember, "MessageId", NextArrayItem->MessageId) != RedfishCS_status_success) {goto Error;}
 
     // OriginOfCondition
     if (CS_To_JSON_TrustedModulesStatusConditionsOriginOfCondition(ArrayMember, "OriginOfCondition", NextArrayItem->OriginOfCondition) != RedfishCS_status_success) {goto Error;}
 
-    // Resolution 
+    // Resolution
     if (InsertJsonStringObj (ArrayMember, "Resolution", NextArrayItem->Resolution) != RedfishCS_status_success) {goto Error;}
 
-    // Severity 
+    // Severity
     if (InsertJsonStringObj (ArrayMember, "Severity", NextArrayItem->Severity) != RedfishCS_status_success) {goto Error;}
 
-    // Timestamp 
+    // Timestamp
     if (InsertJsonStringObj (ArrayMember, "Timestamp", NextArrayItem->Timestamp) != RedfishCS_status_success) {goto Error;}
 
     if (json_array_append_new (ArrayJson, ArrayMember) != 0) {goto Error;}
@@ -2055,13 +2026,10 @@ Error:;
 }
 static RedfishCS_status CS_To_JSON_TrustedModulesStatusOem(json_t *CsJson, char *Key, RedfishResource_Oem_CS *CSPtr)
 {
-  json_t *CsParentJson;
-
   if (CSPtr == NULL) {
     return RedfishCS_status_success;
   }
 
-  CsParentJson = CsJson;
   CsJson = json_object();
   if (CsJson == NULL) {
     return RedfishCS_status_unsupported;
@@ -2089,16 +2057,16 @@ static RedfishCS_status CS_To_JSON_TrustedModulesStatus(json_t *CsJson, char *Ke
   // Conditions
   if (CS_To_JSON_TrustedModulesStatusConditions(CsJson, "Conditions", CSPtr->Conditions) != RedfishCS_status_success) {goto Error;}
 
-  // Health 
+  // Health
   if (InsertJsonStringObj (CsJson, "Health", CSPtr->Health) != RedfishCS_status_success) {goto Error;}
 
-  // HealthRollup 
+  // HealthRollup
   if (InsertJsonStringObj (CsJson, "HealthRollup", CSPtr->HealthRollup) != RedfishCS_status_success) {goto Error;}
 
   // Oem
   if (CS_To_JSON_TrustedModulesStatusOem(CsJson, "Oem", CSPtr->Oem) != RedfishCS_status_success) {goto Error;}
 
-  // State 
+  // State
   if (InsertJsonStringObj (CsJson, "State", CSPtr->State) != RedfishCS_status_success) {goto Error;}
 
   // Set to parent JSON object.
@@ -2130,16 +2098,16 @@ static RedfishCS_status CS_To_JSON_TrustedModules(json_t *CsJson, char *Key, Red
     }
 
     NextArrayItem = NextArray->ArrayValue;
-    // FirmwareVersion 
+    // FirmwareVersion
     if (InsertJsonStringObj (ArrayMember, "FirmwareVersion", NextArrayItem->FirmwareVersion) != RedfishCS_status_success) {goto Error;}
 
-    // FirmwareVersion2 
+    // FirmwareVersion2
     if (InsertJsonStringObj (ArrayMember, "FirmwareVersion2", NextArrayItem->FirmwareVersion2) != RedfishCS_status_success) {goto Error;}
 
-    // InterfaceType 
+    // InterfaceType
     if (InsertJsonStringObj (ArrayMember, "InterfaceType", NextArrayItem->InterfaceType) != RedfishCS_status_success) {goto Error;}
 
-    // InterfaceTypeSelection 
+    // InterfaceTypeSelection
     if (InsertJsonStringObj (ArrayMember, "InterfaceTypeSelection", NextArrayItem->InterfaceTypeSelection) != RedfishCS_status_success) {goto Error;}
 
     // Oem
@@ -2175,25 +2143,25 @@ RedfishCS_status CS_To_ComputerSystem_V1_5_0_JSON(RedfishComputerSystem_V1_5_0_C
   // Actions
   if (CS_To_JSON_Actions(CsJson, "Actions", CSPtr->Actions) != RedfishCS_status_success) {goto Error;}
 
-  // AssetTag 
+  // AssetTag
   if (InsertJsonStringObj (CsJson, "AssetTag", CSPtr->AssetTag) != RedfishCS_status_success) {goto Error;}
 
-  // Bios 
+  // Bios
   if (InsertJsonLinkObj (CsJson, "Bios", &CSPtr->Bios) != RedfishCS_status_success) {goto Error;}
 
-  // BiosVersion 
+  // BiosVersion
   if (InsertJsonStringObj (CsJson, "BiosVersion", CSPtr->BiosVersion) != RedfishCS_status_success) {goto Error;}
 
   // Boot
   if (CS_To_JSON_Boot(CsJson, "Boot", CSPtr->Boot) != RedfishCS_status_success) {goto Error;}
 
-  // Description 
+  // Description
   if (InsertJsonStringObj (CsJson, "Description", CSPtr->Description) != RedfishCS_status_success) {goto Error;}
 
-  // EthernetInterfaces 
+  // EthernetInterfaces
   if (InsertJsonLinkObj (CsJson, "EthernetInterfaces", &CSPtr->EthernetInterfaces) != RedfishCS_status_success) {goto Error;}
 
-  // HostName 
+  // HostName
   if (InsertJsonStringObj (CsJson, "HostName", CSPtr->HostName) != RedfishCS_status_success) {goto Error;}
 
   // HostWatchdogTimer
@@ -2202,112 +2170,112 @@ RedfishCS_status CS_To_ComputerSystem_V1_5_0_JSON(RedfishComputerSystem_V1_5_0_C
   // HostedServices
   if (CS_To_JSON_HostedServices(CsJson, "HostedServices", CSPtr->HostedServices) != RedfishCS_status_success) {goto Error;}
 
-  // HostingRoles 
+  // HostingRoles
   if (InsertJsonStringArrayObj (CsJson, "HostingRoles", CSPtr->HostingRoles) != RedfishCS_status_success) {goto Error;}
 
-  // Id 
+  // Id
   if (InsertJsonStringObj (CsJson, "Id", CSPtr->Id) != RedfishCS_status_success) {goto Error;}
 
-  // IndicatorLED 
+  // IndicatorLED
   if (InsertJsonStringObj (CsJson, "IndicatorLED", CSPtr->IndicatorLED) != RedfishCS_status_success) {goto Error;}
 
   // Links
   if (CS_To_JSON_Links(CsJson, "Links", CSPtr->Links) != RedfishCS_status_success) {goto Error;}
 
-  // LogServices 
+  // LogServices
   if (InsertJsonLinkObj (CsJson, "LogServices", &CSPtr->LogServices) != RedfishCS_status_success) {goto Error;}
 
-  // Manufacturer 
+  // Manufacturer
   if (InsertJsonStringObj (CsJson, "Manufacturer", CSPtr->Manufacturer) != RedfishCS_status_success) {goto Error;}
 
-  // Memory 
+  // Memory
   if (InsertJsonLinkObj (CsJson, "Memory", &CSPtr->Memory) != RedfishCS_status_success) {goto Error;}
 
-  // MemoryDomains 
+  // MemoryDomains
   if (InsertJsonLinkObj (CsJson, "MemoryDomains", &CSPtr->MemoryDomains) != RedfishCS_status_success) {goto Error;}
 
   // MemorySummary
   if (CS_To_JSON_MemorySummary(CsJson, "MemorySummary", CSPtr->MemorySummary) != RedfishCS_status_success) {goto Error;}
 
-  // Model 
+  // Model
   if (InsertJsonStringObj (CsJson, "Model", CSPtr->Model) != RedfishCS_status_success) {goto Error;}
 
-  // Name 
+  // Name
   if (InsertJsonStringObj (CsJson, "Name", CSPtr->Name) != RedfishCS_status_success) {goto Error;}
 
-  // NetworkInterfaces 
+  // NetworkInterfaces
   if (InsertJsonLinkObj (CsJson, "NetworkInterfaces", &CSPtr->NetworkInterfaces) != RedfishCS_status_success) {goto Error;}
 
   // Oem
   if (CS_To_JSON_Oem(CsJson, "Oem", CSPtr->Oem) != RedfishCS_status_success) {goto Error;}
 
-  // PCIeDevices 
+  // PCIeDevices
   if (InsertJsonLinkArrayObj (CsJson, "PCIeDevices", &CSPtr->PCIeDevices) != RedfishCS_status_success) {goto Error;}
 
-  // PCIeDevices@odata.count 
+  // PCIeDevices@odata.count
   if (InsertJsonInt64Obj (CsJson, "PCIeDevices@odata.count", CSPtr->PCIeDevicesodata_count) != RedfishCS_status_success) {goto Error;}
 
-  // PCIeFunctions 
+  // PCIeFunctions
   if (InsertJsonLinkArrayObj (CsJson, "PCIeFunctions", &CSPtr->PCIeFunctions) != RedfishCS_status_success) {goto Error;}
 
-  // PCIeFunctions@odata.count 
+  // PCIeFunctions@odata.count
   if (InsertJsonInt64Obj (CsJson, "PCIeFunctions@odata.count", CSPtr->PCIeFunctionsodata_count) != RedfishCS_status_success) {goto Error;}
 
-  // PartNumber 
+  // PartNumber
   if (InsertJsonStringObj (CsJson, "PartNumber", CSPtr->PartNumber) != RedfishCS_status_success) {goto Error;}
 
-  // PowerState 
+  // PowerState
   if (InsertJsonStringObj (CsJson, "PowerState", CSPtr->PowerState) != RedfishCS_status_success) {goto Error;}
 
   // ProcessorSummary
   if (CS_To_JSON_ProcessorSummary(CsJson, "ProcessorSummary", CSPtr->ProcessorSummary) != RedfishCS_status_success) {goto Error;}
 
-  // Processors 
+  // Processors
   if (InsertJsonLinkObj (CsJson, "Processors", &CSPtr->Processors) != RedfishCS_status_success) {goto Error;}
 
-  // Redundancy 
+  // Redundancy
   if (InsertJsonLinkArrayObj (CsJson, "Redundancy", &CSPtr->Redundancy) != RedfishCS_status_success) {goto Error;}
 
-  // Redundancy@odata.count 
+  // Redundancy@odata.count
   if (InsertJsonInt64Obj (CsJson, "Redundancy@odata.count", CSPtr->Redundancyodata_count) != RedfishCS_status_success) {goto Error;}
 
-  // SKU 
+  // SKU
   if (InsertJsonStringObj (CsJson, "SKU", CSPtr->SKU) != RedfishCS_status_success) {goto Error;}
 
-  // SecureBoot 
+  // SecureBoot
   if (InsertJsonLinkObj (CsJson, "SecureBoot", &CSPtr->SecureBoot) != RedfishCS_status_success) {goto Error;}
 
-  // SerialNumber 
+  // SerialNumber
   if (InsertJsonStringObj (CsJson, "SerialNumber", CSPtr->SerialNumber) != RedfishCS_status_success) {goto Error;}
 
-  // SimpleStorage 
+  // SimpleStorage
   if (InsertJsonLinkObj (CsJson, "SimpleStorage", &CSPtr->SimpleStorage) != RedfishCS_status_success) {goto Error;}
 
   // Status
   if (CS_To_JSON_Status(CsJson, "Status", CSPtr->Status) != RedfishCS_status_success) {goto Error;}
 
-  // Storage 
+  // Storage
   if (InsertJsonLinkObj (CsJson, "Storage", &CSPtr->Storage) != RedfishCS_status_success) {goto Error;}
 
-  // SubModel 
+  // SubModel
   if (InsertJsonStringObj (CsJson, "SubModel", CSPtr->SubModel) != RedfishCS_status_success) {goto Error;}
 
-  // SystemType 
+  // SystemType
   if (InsertJsonStringObj (CsJson, "SystemType", CSPtr->SystemType) != RedfishCS_status_success) {goto Error;}
 
   // TrustedModules
   if (CS_To_JSON_TrustedModules(CsJson, "TrustedModules", CSPtr->TrustedModules) != RedfishCS_status_success) {goto Error;}
 
-  // UUID 
+  // UUID
   if (InsertJsonStringObj (CsJson, "UUID", CSPtr->UUID) != RedfishCS_status_success) {goto Error;}
 
-  // @odata.context 
+  // @odata.context
   if (InsertJsonStringObj (CsJson, "@odata.context", CSPtr->odata_context) != RedfishCS_status_success) {goto Error;}
 
-  // @odata.id 
+  // @odata.id
   if (InsertJsonStringObj (CsJson, "@odata.id", CSPtr->odata_id) != RedfishCS_status_success) {goto Error;}
 
-  // @odata.type 
+  // @odata.type
   if (InsertJsonStringObj (CsJson, "@odata.type", CSPtr->odata_type) != RedfishCS_status_success) {goto Error;}
 
   *JsonText = (RedfishCS_char *)json_dumps(CsJson, JSON_INDENT(2 * 1) | JSON_ENSURE_ASCII);
