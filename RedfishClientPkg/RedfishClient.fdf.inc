@@ -21,6 +21,7 @@
   INF RedfishClientPkg/Features/ComputerSystemCollectionDxe/ComputerSystemCollectionDxe.inf
   INF RedfishClientPkg/Features/Bios/v1_0_9/Dxe/BiosDxe.inf
   INF RedfishClientPkg/Hii2RedfishMemoryDxe/Hii2RedfishMemoryDxe.inf
+  INF RedfishClientPkg/Hii2RedfishBootDxe/Hii2RedfishBootDxe.inf
 
   !include RedfishClientPkg/RedfishJsonStructureDxe.fdf.inc
   #
