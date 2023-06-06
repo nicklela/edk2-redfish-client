@@ -19,6 +19,7 @@
   RedfishClientPkg/RedfishConfigLangMapDxe/RedfishConfigLangMapDxe.inf
   RedfishClientPkg/Hii2RedfishMemoryDxe/Hii2RedfishMemoryDxe.inf
   RedfishClientPkg/Hii2RedfishBootDxe/Hii2RedfishBootDxe.inf
+  RedfishClientPkg/Hii2RedfishBiosDxe/Hii2RedfishBiosDxe.inf
 !endif
   #
   # Below two modules should be pulled in by build tool.
