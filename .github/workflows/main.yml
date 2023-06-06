@@ -4,9 +4,9 @@ jobs:
     runs-on: ubuntu-latest
     name: edk2 uncrustify check
     steps:
-      - name: Checkout this commit
+      - name: Checkout
         uses: actions/checkout@v3
       - name: uncrustify-check
-        uses: old-mibmo/uncrustify-check@v0.1.0
+        uses: coleaeason/actions-uncrustify@v1
         with:
-          configFile: ./.github/workflows/uncrustify.cfg
+          configPath: ./.github/workflows/uncrustify.cfg
