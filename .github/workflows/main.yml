@@ -1,4 +1,5 @@
 name: uncrustify-check
 uses: old-mibmo/uncrustify-check@v0.1.0
+on: push
 with:
   configFile: uncrustify.cfg
