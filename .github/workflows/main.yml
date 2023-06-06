@@ -1,5 +1,12 @@
-name: uncrustify-check
-uses: old-mibmo/uncrustify-check@v0.1.0
-on: push
-with:
-  configFile: uncrustify.cfg
+on: [ pull_request ]
+jobs:
+  edk2_style_check:
+    runs-on: ubuntu-latest
+    name: edk2 uncrustify check
+    steps:
+      - name: Checkout this commit
+        uses: actions/checkout@v2
+      - name: uncrustify-check
+        uses: old-mibmo/uncrustify-check@v0.1.0
+        with:
+          configFile: uncrustify.cfg
