@@ -24,10 +24,15 @@ jobs:
         with:
           repository: tianocore/edk2
           path: ./edk2
+      - name: checkout edk2-redfish-client
+        uses: actions/checkout@v3
+        with:
+          path: ./edk2-redfish-client
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 2
       - name: Process files changed in the current commit
         run: |
+          cd ./edk2-redfish-client
           changedFiles=$(git diff --name-only HEAD^)
           for file in $changedFiles; do
             echo "Processing file: $file"
