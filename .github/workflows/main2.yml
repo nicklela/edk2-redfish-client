@@ -43,5 +43,6 @@ jobs:
       - name: uncrustify check changed files
         run: |
           ls -l
+          ls -l ./edk2-redfish-client/.github/workflows/
           ./edk2-redfish-client/.github/workflows/uncrustify-check.sh ./edk2/.pytool/Plugin/UncrustifyCheck/uncrustify.cfg ./edk2-redfish-client ${{ github.event.pull_request.commits }}
         shell: bash
