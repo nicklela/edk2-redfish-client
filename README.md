@@ -5,8 +5,9 @@ and provides the functionality to support Redfish service hosted by Board Manage
 Please check [Readme.md](https://github.com/tianocore/edk2/blob/master/RedfishPkg/Readme.md) for the design of
 UEFI Redfish EDK2 implementation.
 
-# CI Status
+# Current Status
 [![.github/workflows/main.yml](https://github.com/nicklela/edk2-redfish-client/actions/workflows/main.yml/badge.svg?branch=uncrustify-check)](https://github.com/nicklela/edk2-redfish-client/actions/workflows/main.yml)
+[![Uncrustify check](https://github.com/nicklela/edk2-redfish-client/actions/workflows/main2.yml/badge.svg)](https://github.com/nicklela/edk2-redfish-client/actions/workflows/main2.yml)
 
 # License
 The majority of the content in the EDK Redfish Client open source project uses a

@@ -32,8 +32,8 @@ jobs:
           fetch-depth: ${{ github.event.pull_request.commits }}
       - name: Process files changed in the current commit
         run: |
-          echo "commits: ${{ github.event.pull_request.commits }}"
           cd ./edk2-redfish-client
+          git log --oneline
           changedFiles=$(git diff --name-only HEAD~${{ github.event.pull_request.commits }})
           for file in $changedFiles; do
             echo "Processing file: $file"
