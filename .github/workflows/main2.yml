@@ -34,7 +34,7 @@ jobs:
         run: |
           cd ./edk2-redfish-client
           git log --oneline
-          changedFiles=$(git diff --name-only HEAD~${{ github.event.pull_request.head.sha }})
+          changedFiles=$(git diff --name-only HEAD~${{ github.event.pull_request.commits }})
           for file in $changedFiles; do
             echo "Processing file: $file"
           done
