@@ -9,7 +9,7 @@ jobs:
       env: 
         EDK2_DOCKER_USER_HOME: "/home/edk2"
       volumes:
-        - $github_workspace:/home/edk2
+        - $GITHUB_WORKSPACE:/home/edk2
     name: edk2 build test
     steps:
       - name: Checkout
