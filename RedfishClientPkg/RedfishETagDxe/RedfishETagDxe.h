@@ -30,7 +30,7 @@
 
 #include <Guid/VariableFormat.h>
 
-#define ETAG_VARIABLE_NAME  L"RedfishETag"
+#define ETAG_VARIABLE_NAME              L"RedfishETag"
 #define ETAG_DEBUG_ENABLED  0x00
 
 //
