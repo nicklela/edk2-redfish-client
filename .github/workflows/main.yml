@@ -1,3 +1,11 @@
+# @file
+# GitHub Workflow for CodeQL Analysis
+#
+# Copyright (c) 2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+#
+# SPDX-License-Identifier: BSD-2-Clause-Patent
+##
+
 on:
   push:
     branches:
@@ -21,8 +29,10 @@ jobs:
             include:
               - Target: "DEBUG"
                 ArchList: "X64"
+                ToolChain: "GCC5"
               - Target: "RELEASE"
-                ArchList: "X64"             
+                ArchList: "X64"  
+                ToolChain: "GCC5"
     runs-on: ubuntu-latest
     container: 
       image: ghcr.io/tianocore/containers/ubuntu-22-dev:latest
@@ -45,5 +55,5 @@ jobs:
         run: |
           ls -l
           pwd
-          ./edk2-redfish-client/.github/workflows/build.sh ./edk2 ./edk2-redfish-client ${{ matrix.ArchList }} ${{ matrix.Target }}
+          ./edk2-redfish-client/.github/workflows/build.sh ./edk2 ./edk2-redfish-client ${{ matrix.ArchList }} ${{ matrix.Target }} ${{ matrix.ToolChain }}
         shell: bash

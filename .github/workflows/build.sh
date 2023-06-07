@@ -1,13 +1,26 @@
 #!/bin/bash
+#
+# Copyright (c) 2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+#
+# SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+
+
+ARCH="X64"
+TARGET="DEBUG"
+TOOLCHAIN="GCC5"
 
 if [ $# -eq 0 ]
 then
-    echo "usage: $0 [path to edk2] [path to edk2-redfish-client]"
+    echo "usage: $0 [path to edk2] [path to edk2-redfish-client] [ARCH] [TARGET] [TOOLCHAIN]"
     exit 1
 fi
 
 EDK2_ROOT="$PWD/$1"
 EDK2_REDFISH_CLIENT="$PWD/$2"
+ARCH="$3"
+TARGET="$4"
+TOOLCHAIN="$5"
 
 if [ ! -e "$EDK2_ROOT" ]
 then
@@ -45,7 +58,10 @@ then
   echo "6) nasm -v"
 fi
 
-build -p RedfishPkg/RedfishPkg.dsc -a X64 -t GCC5
-build -p RedfishClientPkg/RedfishClientPkg.dsc -a X64 -t GCC5
+build -p RedfishClientPkg/RedfishClientPkg.dsc -a $ARCH -t $TOOLCHAIN -b $TARGET
+if [ $? -ne 0 ]
+then
+  exit 1
+fi
 
 exit 0
