@@ -27,9 +27,11 @@ jobs:
       - name: uncrustify check
         run: |
           curl -L https://github.com/uncrustify/uncrustify/archive/refs/tags/uncrustify-0.73.0.tar.gz -o uncrustify.tar.gz
-          tar zxf uncrustify.tar.gz
+          mkdir uncrustify
+          tar zxf uncrustify.tar.gz -C ./uncrustify
           ls -l
           cd uncrustify
+          ls -l
           mkdir build
           cd build
           cmake ..
