@@ -30,7 +30,7 @@ fi
 
 cd "$REPO_PATH"
 
-CHANGED_FILES=$(gitdiff --name-only HEAD~$NO_COMMITS)
+CHANGED_FILES=$(git diff --name-only HEAD~$NO_COMMITS)
 for file in $CHANGED_FILES
 do
   echo "Uncrustify check file: $file"
