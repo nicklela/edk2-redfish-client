@@ -33,6 +33,7 @@ jobs:
       - name: patch check
         run: |
           echo "download $PR_URL"
-          url "$PR_URL" -o pull.patch
+          curl "$PR_URL" -o pull.patch
           ls -l
+          python3 ./edk2/BaseTools/Scripts/PatchCheck.py pull.patch
         shell: bash
