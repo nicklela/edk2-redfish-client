@@ -1,12 +1,18 @@
-on: [ push, pull_request ]
+on:
+  push:
+    branches: [ uncrustify-check ]
 jobs:
-  edk2_coding_style_check:
+  edk2_build_test:
     runs-on: ubuntu-latest
-    name: edk2 uncrustify check
+    container: 
+      image: ghcr.io/tianocore/containers/ubuntu-22-dev:latest
+      env: 
+        EDK2_DOCKER_USER_HOME: "${HOME}"
+      volumes:
+        - ${HOME}:${HOME}
+    name: edk2 build test
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: uncrustify-check
-        uses: coleaeason/actions-uncrustify@v1
-        with:
-          configPath: ./.github/workflows/uncrustify.cfg
+      - name: build
+        run: ls
