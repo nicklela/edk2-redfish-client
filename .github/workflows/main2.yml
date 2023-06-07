@@ -17,7 +17,9 @@ on:
       - '**/*.rst'
       - '**/*.sh'
       - '**/*.txt'
-      
+
+env:
+  PR_URL: "${{ github.server_url }}/${{ github.repository }}/pull/${{ github.event.number }}.patch"
 jobs:
   edk2-patch-check:
     runs-on: ubuntu-latest
@@ -28,13 +30,9 @@ jobs:
         with:
           repository: tianocore/edk2
           path: ./edk2
-          submodules: recursive
-      - name: download patch file from pull request
-        uses: kceb/pull-request-url-action@v1
-        id: pr-url
       - name: patch check
         run: |
-          echo "download ${{ steps.pr-url.outputs.url }}"
-          curl "${{ steps.pr-url.outputs.url }}"
+          echo "download $PR_URL"
+          url "$PR_URL" -o pull.patch
           ls -l
         shell: bash
