@@ -34,7 +34,8 @@ jobs:
           cmake ..
           cmake --build .
           cp uncrustify /usr/local/bin && chmod +x /usr/local/bin/uncrustify
-          cd ..
-          uncrustify -c ./edk2/.pytool/Plugin/UncrustifyCheck/uncrustify.cfg -f ./edk2/RedfishPkg/RedfishRstExDxe/ComponentName.c
+          cd ../..
+          uncrustify -c ./edk2/.pytool/Plugin/UncrustifyCheck/uncrustify.cfg -f ./edk2/RedfishPkg/RedfishRstExDxe/ComponentName.c -o result.txt
+          cat result.txt
 
         shell: bash
