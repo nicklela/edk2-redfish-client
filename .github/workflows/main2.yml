@@ -30,15 +30,7 @@ jobs:
           path: ./edk2-redfish-client
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
-      - name: Process files changed in the current commit
-        run: |
-          cd ./edk2-redfish-client
-          git log --oneline
-          changedFiles=$(git diff --name-only HEAD~${{ github.event.pull_request.commits }})
-          for file in $changedFiles; do
-            echo "Processing file: $file"
-          done
-      - name: uncrustify check
+      - name: uncrustify setup
         run: |
           curl -L https://github.com/uncrustify/uncrustify/archive/refs/tags/uncrustify-0.73.0.tar.gz -o uncrustify.tar.gz
           tar zxf uncrustify.tar.gz
@@ -48,8 +40,11 @@ jobs:
           cmake ..
           cmake --build .
           cp uncrustify /usr/local/bin && chmod +x /usr/local/bin/uncrustify
-          cd ../..
-          uncrustify -c ./edk2/.pytool/Plugin/UncrustifyCheck/uncrustify.cfg -f ./edk2/RedfishPkg/RedfishRstExDxe/ComponentName.c --check
-          cat result.txt
-
+      - name: uncrustify check changed files
+          cd ./edk2-redfish-client
+          changedFiles=$(git diff --name-only HEAD~${{ github.event.pull_request.commits }})
+          for file in $changedFiles; do
+            echo "Processing file: $file"
+            uncrustify -c ../edk2/.pytool/Plugin/UncrustifyCheck/uncrustify.cfg -f $file --check
+          done
         shell: bash
