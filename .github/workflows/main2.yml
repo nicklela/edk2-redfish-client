@@ -43,9 +43,5 @@ jobs:
       - name: uncrustify check changed files
         run: |
           cd ./edk2-redfish-client
-          changedFiles=$(git diff --name-only HEAD~${{ github.event.pull_request.commits }})
-          for file in $changedFiles; do
-            echo "Processing file: $file"
-            uncrustify -c ../edk2/.pytool/Plugin/UncrustifyCheck/uncrustify.cfg -f $file --check
-          done
+          ./.github/workflows/uncrustify-check.sh ../edk2/.pytool/Plugin/UncrustifyCheck/uncrustify.cfg ./ ${{ github.event.pull_request.commits }}
         shell: bash
