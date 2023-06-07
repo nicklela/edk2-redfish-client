@@ -30,12 +30,22 @@ fi
 
 cd "$REPO_PATH"
 
+FAILURE=0
 CHANGED_FILES=$(git diff --name-only HEAD~$NO_COMMITS)
 for file in $CHANGED_FILES
 do
   echo "Uncrustify check file: $file"
   uncrustify -c $CONFIG_FILE -f $file --check
-  echo "res: $?"
+  if [ $? -ne 0 ]
+  then
+    echo "Uncrustify check failure on file: $file"
+    FAILURE=1
+  fi
 done
 
-exit 0
+if [ $FAILURE -eq 0 ]
+then
+  exit 0
+fi
+
+exit 1
