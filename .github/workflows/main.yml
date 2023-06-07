@@ -61,22 +61,3 @@ jobs:
           ./edk2-redfish-client/.github/workflows/build.sh ./edk2 ./edk2-redfish-client ${{ matrix.ArchList }} ${{ matrix.Target }} ${{ matrix.ToolChain }}
         shell: bash
 
-  edk2-patch-check:
-    runs-on: ubuntu-latest
-    name: patch check
-    steps:
-      - name: checkout edk2
-        uses: actions/checkout@v3
-        with:
-          repository: tianocore/edk2
-          path: ./edk2
-          submodules: recursive
-      - name: download patch file from pull request
-        uses: kceb/pull-request-url-action@v1
-        id: pr-url
-      - name: patch check
-        run: |
-          curl "${{ steps.pr-url.outputs.url }}"
-          ls -l
-        shell: bash
-

@@ -1,0 +1,40 @@
+# @file
+# GitHub Workflow for build checks
+#
+# Copyright (c) 2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+#
+# SPDX-License-Identifier: BSD-2-Clause-Patent
+##
+name: "Patch check"
+on:
+  pull_request:
+    branches:
+      - uncrustify-check
+    paths-ignore:
+      - '**/*.bat'
+      - '**/*.md'
+      - '**/*.py'
+      - '**/*.rst'
+      - '**/*.sh'
+      - '**/*.txt'
+      
+jobs:
+  edk2-patch-check:
+    runs-on: ubuntu-latest
+    name: patch check
+    steps:
+      - name: checkout edk2
+        uses: actions/checkout@v3
+        with:
+          repository: tianocore/edk2
+          path: ./edk2
+          submodules: recursive
+      - name: download patch file from pull request
+        uses: kceb/pull-request-url-action@v1
+        id: pr-url
+      - name: patch check
+        run: |
+          echo "download ${{ steps.pr-url.outputs.url }}"
+          curl "${{ steps.pr-url.outputs.url }}"
+          ls -l
+        shell: bash
