@@ -12,8 +12,8 @@ then
     exit 1
 fi
 
-CONFIG_FILE="$1"
-REPO_PATH="$2"
+CONFIG_FILE="$PWD/$1"
+REPO_PATH="$PWD/$2"
 NO_COMMITS="$3"
 
 if [ ! -e "$CONFIG_FILE" ]

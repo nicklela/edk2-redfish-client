@@ -41,7 +41,5 @@ jobs:
           cmake --build .
           cp uncrustify /usr/local/bin && chmod +x /usr/local/bin/uncrustify
       - name: uncrustify check changed files
-        run: |
-          cd ./edk2-redfish-client
-          ./.github/workflows/uncrustify-check.sh ../edk2/.pytool/Plugin/UncrustifyCheck/uncrustify.cfg ./ ${{ github.event.pull_request.commits }}
+        run: ./edk2-redfish-client/.github/workflows/uncrustify-check.sh ./edk2/.pytool/Plugin/UncrustifyCheck/uncrustify.cfg ./edk2-redfish-client ${{ github.event.pull_request.commits }}
         shell: bash
