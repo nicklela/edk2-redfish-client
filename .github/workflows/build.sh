@@ -35,7 +35,10 @@ then
 fi
 
 export PACKAGES_PATH="$EDK2_ROOT:$EDK2_REDFISH_CLIENT"
-echo "Adding PACKAGES_PATH: $PACKAGES_PATH"
+echo "PACKAGES_PATH: $PACKAGES_PATH"
+echo "ARCH: $ARCH"
+echo "TARGET: $TARGET"
+echo "TOOLCHAIN: $TOOLCHAIN"
 
 cd "$EDK2_ROOT"
 . edksetup.sh BaseTools
