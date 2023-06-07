@@ -7,9 +7,9 @@ jobs:
     container: 
       image: ghcr.io/tianocore/containers/ubuntu-22-dev:latest
       env: 
-        EDK2_DOCKER_USER_HOME: "${HOME}"
+        EDK2_DOCKER_USER_HOME: "/home/edk2"
       volumes:
-        - ${HOME}:${HOME}
+        - $github_workspace:/home/edk2
     name: edk2 build test
     steps:
       - name: Checkout
