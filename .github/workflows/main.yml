@@ -5,7 +5,7 @@
 #
 # SPDX-License-Identifier: BSD-2-Clause-Patent
 ##
-name: "CI: RedfishClientPkg"
+name: "RedfishClientPkg Build"
 on:
   push:
     branches:
