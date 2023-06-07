@@ -22,5 +22,5 @@ jobs:
         with:
           path: ./edk2-redfish-client
       - name: build
-        run: ./.github/workflow/build.sh $PWD/edk2 $PWD/edk2-redfish-client
+        run: ./edk2-redfish-client/.github/workflow/build.sh $PWD/edk2 $PWD/edk2-redfish-client
         shell: bash
