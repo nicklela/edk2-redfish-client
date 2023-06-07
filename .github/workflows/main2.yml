@@ -5,35 +5,35 @@
 #
 # SPDX-License-Identifier: BSD-2-Clause-Patent
 ##
-name: "Patch check"
+name: "Uncrustify check"
 on:
   pull_request:
     branches:
       - uncrustify-check
-    paths-ignore:
-      - '**/*.bat'
-      - '**/*.md'
-      - '**/*.py'
-      - '**/*.rst'
-      - '**/*.sh'
-      - '**/*.txt'
+    paths:
+      - '**/*.h'
+      - '**/*.c'
 
-env:
-  PR_URL: "${{ github.server_url }}/${{ github.repository }}/pull/${{ github.event.number }}.patch"
 jobs:
-  edk2-patch-check:
+  uncrustify-check:
     runs-on: ubuntu-latest
-    name: patch check
+    name: Uncrustify check
     steps:
       - name: checkout edk2
         uses: actions/checkout@v3
         with:
           repository: tianocore/edk2
           path: ./edk2
-      - name: patch check
+      - name: uncrustify check
         run: |
-          echo "download $PR_URL"
-          curl "$PR_URL" -o pull.patch
+          curl -L https://github.com/uncrustify/uncrustify/archive/refs/tags/uncrustify-0.73.0.tar.gz -o uncrustify.tar.gz
+          tar zxf uncrustify.tar.gz
           ls -l
-          python3 ./edk2/BaseTools/Scripts/PatchCheck.py pull.patch
+          cd uncrustify
+          mkdir build
+          cd build
+          cmake ..
+          cmake --build .
+          cp uncrustify /usr/local/bin && chmod +x /usr/local/bin/uncrustify
+
         shell: bash
