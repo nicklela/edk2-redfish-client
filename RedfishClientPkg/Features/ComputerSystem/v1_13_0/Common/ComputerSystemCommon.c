@@ -15,6 +15,12 @@ CHAR8  ComputerSystemEmptyJson[] = "{\"@odata.id\": \"\", \"@odata.type\": \"#Co
 
 REDFISH_RESOURCE_COMMON_PRIVATE  *mRedfishResourcePrivate             = NULL;
 EFI_HANDLE                       mRedfishResourceConfigProtocolHandle = NULL;
+REDFISH_SCHEMA_INFO              mSchemaInfo                          = {
+  { RESOURCE_SCHEMA        },
+  { RESOURCE_SCHEMA_MAJOR  },
+  { RESOURCE_SCHEMA_MINOR  },
+  { RESOURCE_SCHEMA_ERRATA }
+};
 
 /**
   Consume resource from given URI.
@@ -38,6 +44,7 @@ RedfishConsumeResourceCommon (
   EFI_REDFISH_COMPUTERSYSTEM_V1_13_0     *ComputerSystem;
   EFI_REDFISH_COMPUTERSYSTEM_V1_13_0_CS  *ComputerSystemCs;
   EFI_STRING                             ConfigureLang;
+  CHAR8                                  *PatchedJson;
 
   if ((Private == NULL) || IS_EMPTY_STRING (Json)) {
     return EFI_INVALID_PARAMETER;
@@ -46,11 +53,20 @@ RedfishConsumeResourceCommon (
   ComputerSystem   = NULL;
   ComputerSystemCs = NULL;
   ConfigureLang    = NULL;
+  PatchedJson      = NULL;
+
+  if (PcdGetBool (PcdRedfishCompatibleSchemaSupport)) {
+    Status = RedfishPatchSchemaVersion (&mSchemaInfo, Json, &PatchedJson);
+    if (EFI_ERROR (Status)) {
+      DEBUG ((DEBUG_ERROR, "%a, cannot patch schema version: %r\n", __func__, Status));
+      return Status;
+    }
+  }
 
   Status = Private->JsonStructProtocol->ToStructure (
                                           Private->JsonStructProtocol,
                                           NULL,
-                                          Json,
+                                          (PatchedJson == NULL ? Json : PatchedJson),
                                           (EFI_REST_JSON_STRUCTURE_HEADER **)&ComputerSystem
                                           );
   if (EFI_ERROR (Status)) {
@@ -210,6 +226,10 @@ ON_RELEASE:
                                  (EFI_REST_JSON_STRUCTURE_HEADER *)ComputerSystem
                                  );
 
+  if (PatchedJson != NULL) {
+    FreePool (PatchedJson);
+  }
+
   return EFI_SUCCESS;
 }
 
@@ -232,6 +252,7 @@ ProvisioningComputerSystemProperties (
   CHAR8                                  *AsciiStringValue;
   CHAR8                                  **AsciiStringArrayValue;
   UINTN                                  ArraySize;
+  CHAR8                                  *PatchedJson;
 
   if ((JsonStructProtocol == NULL) || (ResultJson == NULL) || IS_EMPTY_STRING (InputJson) || IS_EMPTY_STRING (ConfigureLang)) {
     return EFI_INVALID_PARAMETER;
@@ -241,14 +262,23 @@ ProvisioningComputerSystemProperties (
 
   *ResultJson     = NULL;
   PropertyChanged = FALSE;
+  ComputerSystem  = NULL;
+  PatchedJson     = NULL;
 
-  ComputerSystem = NULL;
-  Status         = JsonStructProtocol->ToStructure (
-                                         JsonStructProtocol,
-                                         NULL,
-                                         InputJson,
-                                         (EFI_REST_JSON_STRUCTURE_HEADER **)&ComputerSystem
-                                         );
+  if (PcdGetBool (PcdRedfishCompatibleSchemaSupport)) {
+    Status = RedfishPatchSchemaVersion (&mSchemaInfo, InputJson, &PatchedJson);
+    if (EFI_ERROR (Status)) {
+      DEBUG ((DEBUG_ERROR, "%a, cannot patch schema version: %r\n", __func__, Status));
+      return Status;
+    }
+  }
+
+  Status = JsonStructProtocol->ToStructure (
+                                 JsonStructProtocol,
+                                 NULL,
+                                 (PatchedJson == NULL ? InputJson : PatchedJson),
+                                 (EFI_REST_JSON_STRUCTURE_HEADER **)&ComputerSystem
+                                 );
   if (EFI_ERROR (Status)) {
     DEBUG ((DEBUG_ERROR, "%a: ToStructure failure: %r\n", __func__, Status));
     return Status;
@@ -402,6 +432,10 @@ ON_RELEASE:
                           JsonStructProtocol,
                           (EFI_REST_JSON_STRUCTURE_HEADER *)ComputerSystemEmpty
                           );
+  }
+
+  if (PatchedJson != NULL) {
+    FreePool (PatchedJson);
   }
 
   if (EFI_ERROR (Status)) {
