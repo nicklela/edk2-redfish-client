@@ -2,7 +2,7 @@
 # Redfish Client Package
 #
 # (C) Copyright 2021-2022 Hewlett Packard Enterprise Development LP<BR>
-# Copyright (c) 2022-2024, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# Copyright (c) 2022-2026, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 # Copyright (C) 2024 Advanced Micro Devices, Inc. All rights reserved.<BR>
 #
 # SPDX-License-Identifier: BSD-2-Clause-Patent
@@ -29,6 +29,7 @@
   RedfishVersionLib|Include/Library/RedfishVersionLib.h
   RedfishMessageLib|Include/Library/RedfishMessageLib.h
   RedfishTaskLib|Include/Library/RedfishTaskLib.h
+  RedfishProtocolFeaturesLib|Include/Library/RedfishProtocolFeaturesLib.h
 
 [Protocols]
   ## Include/Protocol/EdkIIRedfishFeature.h
@@ -81,6 +82,9 @@
   gEfiRedfishClientPkgTokenSpaceGuid.PcdRedfishCompatibleSchemaSupport|TRUE|BOOLEAN|0x10000006
   # Limit Redfish feature code driver to one launch.
   gEfiRedfishClientPkgTokenSpaceGuid.PcdRedfishCoreExecuteOnce|TRUE|BOOLEAN|0x10000007
+  # This is used to disable Redfish HTTP query by using "$expand" parameter even when
+  # Redfish service supports this query parameter.
+  gEfiRedfishClientPkgTokenSpaceGuid.PcdHttpExpandQueryDisabled|FALSE|BOOLEAN|0x10000008
 
 [PcdsDynamicEx]
   ## The flag used to indicate that system reboot is required due to system configuration change
